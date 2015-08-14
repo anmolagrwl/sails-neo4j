@@ -7,22 +7,31 @@
 
 var db = require("seraph")({ user: 'neo4j',
                              pass: 'neo4j1' });
-var tra = { name: "train-1" };
+var tra = { name: "Train-1" };
 
 module.exports = {
 
 	getseats: function (req, res) {
 		db.find(tra, function (err, result) {
+			// console.log(tra);
 				if (err) throw err;
 				var train;
 				// console.log(result);
-				for (r of result) {
+
+				for (var r = result.length - 1; r >= 0; r--) {
 					// console.log(r);
-					train = r;
-					console.log(train["available-seats"]);
-					return res.json({number: train["available-seats"]});
-				}
-				// console.log(train);
+					train = result[r];
+					// console.log(train["availableSeats"]);
+					return res.json({number: train["availableSeats"]});		
+				};
+
+				// for (r of result) {
+				// 	// console.log(r);
+				// 	train = r;
+				// 	// console.log(train["availableSeats"]);
+				// 	return res.json({number: train["availableSeats"]});
+				// }
+				console.log(train);
 		});
 	},
 
@@ -30,15 +39,16 @@ module.exports = {
 		db.find(tra, function (err, result) {
 				if (err) throw err;
 				// console.log(result);
-				for (r of result) {
+				for (var r = result.length - 1; r >= 0; r--) {
 					// console.log(r);
-					train = r;
-				}
+					train = result[r];
+					// console.log(train["availableSeats"]);	
+				};
 				// console.log(train);
-				train["available-seats"]--;
+				train["availableSeats"]--;
 				db.save(train, function(err, node) {
-					console.log(node);
-					return res.json({number: node["available-seats"]});
+					// console.log(node);
+					return res.json({number: node["availableSeats"]});
 				})
 		});
 	}
