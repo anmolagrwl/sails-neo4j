@@ -53,3 +53,11 @@ module.exports = {
 		});
 	}
 };
+
+
+// CREATE(:Train{name: "Train-1", availableSeats: 50})
+// CREATE(:City{name: "Mumbai"})
+// CREATE(:City{name: "Delhi"})
+//
+// MATCH (d:City{name:"Delhi"}), (t:Train{name:"Train-1"}) CREATE (d)-[:ORIGIN]->(t)
+// MATCH (m:City{name:"Mumbai"}), (t:Train{name:"Train-1"}) CREATE (t)-[:DESTINATION]->(m)
